@@ -80,6 +80,7 @@ for raw_id in $(echo "$IDS_STRING" | tr ',' '\n'); do
     echo '[runtime] HOTKEY_ID=$I'
     $VENV_BIN/python -m neurons.miner \
       --netuid 126 \
+      --neuron.name miner \
       --wallet.name $WALLET_NAME \
       --wallet.hotkey hk$I \
       --subtensor.network $SUBTENSOR_NETWORK \
