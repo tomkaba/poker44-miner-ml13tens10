@@ -28,12 +28,6 @@ def add_args(cls, parser: argparse.ArgumentParser) -> None:
         help="Torch device to execute forwards on (cpu, cuda:0, ...).",
     )
     parser.add_argument(
-        "--neuron.name",
-        type=str,
-        default="miner",
-        help="Neuron run name used for local logging path.",
-    )
-    parser.add_argument(
         "--neuron.epoch_length",
         type=int,
         default=50,
@@ -172,19 +166,6 @@ def add_miner_args(cls, parser: argparse.ArgumentParser) -> None:
 
 def check_config(cls, config: "bt.Config"):
     r"""Checks/validates the config namespace object."""
-    if getattr(config, "neuron", None) is None:
-        config.neuron = argparse.Namespace()
-    if not getattr(config.neuron, "name", None):
-        config.neuron.name = "miner"
-    if not getattr(config.neuron, "device", None):
-        config.neuron.device = "cpu"
-    if getattr(config.neuron, "epoch_length", None) is None:
-        config.neuron.epoch_length = 50
-    if getattr(config.neuron, "disable_set_weights", None) is None:
-        config.neuron.disable_set_weights = False
-    if getattr(config.neuron, "axon_off", None) is None:
-        config.neuron.axon_off = False
-
     full_path = os.path.expanduser(
         "{}/{}/{}/netuid{}/{}".format(
             config.logging.logging_dir,  # TODO: change from ~/.bittensor/miners to ~/.bittensor/neurons
