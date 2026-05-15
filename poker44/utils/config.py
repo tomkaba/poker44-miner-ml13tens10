@@ -176,6 +176,14 @@ def check_config(cls, config: "bt.Config"):
         config.neuron = argparse.Namespace()
     if not getattr(config.neuron, "name", None):
         config.neuron.name = "miner"
+    if not getattr(config.neuron, "device", None):
+        config.neuron.device = "cpu"
+    if getattr(config.neuron, "epoch_length", None) is None:
+        config.neuron.epoch_length = 50
+    if getattr(config.neuron, "disable_set_weights", None) is None:
+        config.neuron.disable_set_weights = False
+    if getattr(config.neuron, "axon_off", None) is None:
+        config.neuron.axon_off = False
 
     full_path = os.path.expanduser(
         "{}/{}/{}/netuid{}/{}".format(
